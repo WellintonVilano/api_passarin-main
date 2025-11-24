@@ -1,6 +1,6 @@
 import db from  '../db/db.js'
 
-export const findAll = async (minValor, maxValor, nome, idProduto) => {
+export const findAll = async (minValor, maxValor, idCategoria, idProduto) => {
     let sql = 'SELECT * FROM produto';
     const conditions = [];
     const values = [];
@@ -16,7 +16,7 @@ export const findAll = async (minValor, maxValor, nome, idProduto) => {
         conditions.push('idProduto = ?');
         values.push(idProduto);
     }
-    if (nome) {
+    if (idCategoria) {
         conditions.push('LOWER(nome) LIKE ?');
         values.push(`%${nome.toLowerCase()}%`);
     }
