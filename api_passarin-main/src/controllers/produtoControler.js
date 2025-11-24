@@ -70,7 +70,7 @@ export const deletarProduto = async (req,res) => {
 export const atualizarProduto =  async (req,res) => {
     try {
         const {idProduto} = req.params
-        const updated = await produtoservice.create(req.body)
+        const updated = await produtoservice.create(req.body, idProduto)
         if (!updated) {
             return res.status(404).json({error: 'Erro ao atualizar o produto, não encontrado.'})
         }

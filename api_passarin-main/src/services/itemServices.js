@@ -1,6 +1,6 @@
 import db from  '../db/db.js'
 
-export const findAll = async (minValor, maxValor, idCategoria, idProduto) => {
+export const findAll = async (minValor, maxValor, idCategoria, idProduto, idItem) => {
     let sql = 'SELECT * FROM produto';
     const conditions = [];
     const values = [];
@@ -18,7 +18,11 @@ export const findAll = async (minValor, maxValor, idCategoria, idProduto) => {
     }
     if (idCategoria) {
         conditions.push('idCategoria = ?');
-        values.push(idCategoria);
+        values.push(idCategoria)
+    }
+    if (idItem) {
+        conditions.push('idItem = ?');
+        values.push(idItem)
     }
 
     if (conditions.length > 0) {
@@ -28,20 +32,20 @@ export const findAll = async (minValor, maxValor, idCategoria, idProduto) => {
     return rows
 }
 
-export const create = async (produtoData) => {
+export const create = async (itemData) => {
 
-    const novoProduto = produtoData
+    const novoItem = itemData
 
-    await db.query('INSERT INTO produto SET ?', novoProduto);
-    return novoProduto
+    await db.query('INSERT INTO item SET ?', novoItem);
+    return novoItem
 };
 
-export const update = async (idProduto, produtoData) => {
-    const [result] = await db.query('UPDATE produto SET ? WHERE idProduto = ?', [produtoData, idProduto]);
+export const update = async (idItem, itemData) => {
+    const [result] = await db.query('UPDATE item SET ? WHERE idItem = ?', [itemData, idItem]);
     return result.affectedRows > 0;
 };
 
-export const remove = async (idProduto) => {
-    const [result] = await db.query('DELET FROM produto WHERE idProduto = ?', [idProduto]);
+export const remove = async (idItem) => {
+    const [result] = await db.query('DELET FROM item WHERE idItem = ?', [idItem]);
     return result.affectedRows > 0;
 };
